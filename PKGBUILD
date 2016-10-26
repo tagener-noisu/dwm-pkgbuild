@@ -1,6 +1,6 @@
 pkgname=dwm-git-noisu
 _pkgname=dwm
-pkgver=6.1.6.gab9571b
+pkgver=6.1.8.g590b059
 pkgrel=1
 pkgdesc="A dynamic window manager for X"
 url="http://dwm.suckless.org"
@@ -38,7 +38,10 @@ package() {
   make PREFIX=/usr DESTDIR="$pkgdir" install
   install -m644 -D LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
   install -m644 -D README "$pkgdir/usr/share/doc/$pkgname/README"
-  git checkout user
+
+  if [[ $(git branch | grep -Po "user") == "user" ]]; then
+    git checkout user
+  fi
 }
 
 # vim:ts=2:sw=2:et:
